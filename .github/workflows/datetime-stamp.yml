@@ -2,8 +2,8 @@ name: DateTime Stamp
 
 on:
   schedule:
-    # Runs every 5 minutes (UTC). Note: GitHub may delay scheduled runs under load.
-    - cron: "*/5 * * * *"
+    # Runs once every hour (UTC). Note: GitHub may delay scheduled runs under load.
+    - cron: "0 * * * *"
   workflow_dispatch:
 
 permissions:
