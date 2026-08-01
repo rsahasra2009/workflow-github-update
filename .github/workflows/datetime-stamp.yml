@@ -34,4 +34,11 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add DateTimeStamps
           git commit -m "Add datetime stamp $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
-          git push
+          # Rebase onto latest remote and retry to survive concurrent runs.
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            echo "Push attempt $i failed, retrying..."
+            sleep 3
+          done
+          echo "Failed to push after multiple attempts" >&2
+          exit 1
